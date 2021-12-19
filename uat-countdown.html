@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body style="background-color: #e8cc00">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">Yurii's Projects</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto" id="main-nav"></ul>
+            </div>
+        </nav>
+        <style>
+            .middle {
+                display: flex;
+                justify-content: center;
+            }
+        </style>
+        <div class="middle">
+            <div>
+                <div style="background: #ccc; padding: 20px">
+                    <div class="middle">
+                        <img src="logo.jpg" />
+                    </div>
+                    <h1>UAT Space Program</h1>
+                    <p>Test of the document write function</p>
+                    <p>Test of the paragraph tags</p>
+                    <br />
+                    <div class="middle">
+                        <button
+                            style="margin-right: 15px"
+                            onclick="ButtonClickStart()"
+                            class="btn btn-light"
+                        >
+                            Start
+                        </button>
+                        <button class="btn btn-light">Stop</button>
+                    </div>
+                    <!-- Yurii Marchuk -->
+                    <br />
+                    <br />
+                    <div style="text-align: center" id="countdown">10</div>
+                </div>
+                <div class="middle" style="margin-top: 20px">
+                    <audio
+                        controls
+                        autoplay
+                        loop
+                        src="chill.mp3"
+                        id="audio"
+                        onplay="removeInterval(event)"
+                    ></audio>
+                </div>
+            </div>
+        </div>
+        <script>
+            var audio = document.getElementById('audio'); // store audio element into variable
+            var interval; // we will use this variable to clear play() interval
+            audio.volume = 0.2; // set volume to 20%
+            function removeInterval() {
+                // a function that will clear the interval when audio is first time played
+                clearInterval(interval);
+            }
+            // add event listener when audio is playable
+            audio.addEventListener('canplaythrough', function () {
+                // try to play audio every 0.5s
+                interval = setInterval(function () {
+                    audio.play();
+                }, 500);
+            });
+
+            function ButtonClickStart() {
+                var element = document.getElementById('countdown'); // store element into a variable
+                function displayText(timer, delayInSeconds, bodyColor) {
+                    // a function that will change text after a delay
+                    setTimeout(function () {
+                        document.body.style.backgroundColor = bodyColor; // set body bg color to a variable
+                        if (timer < 5) {
+                            // if timer is less than 5
+                            timer =
+                                'Warning Less than ½ way to launch, time left = ' +
+                                timer; // change message to new one
+                        }
+                        element.innerText = timer; // set element text to timer
+                    }, delayInSeconds * 1000);
+                }
+                var currTime = 10; // initialize a varialbe
+                while (currTime >= 0) {
+                    // repeat until currTime is more or equal than 0
+                    var color = 'white'; // default color is white
+                    if (currTime % 2 == 1) {
+                        color = 'red'; // if currTime module 2 equals 1 (number is even) set color to red
+                    }
+                    displayText(currTime, 10 - currTime, color); // call function to change text and bg color
+                    currTime = currTime - 1; // decrease variable by one
+                }
+                displayText('Blastoff!', 11, 'red'); // final "Blastoff!" message and red bg color
+            }
+        </script>
+        <script src="load-nav.js"></script>
+    </body>
+</html>

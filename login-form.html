@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="bootstrap.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">Yurii's Projects</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto" id="main-nav"></ul>
+            </div>
+        </nav>
+        <!-- Yurii Marchuk--->
+        <style>
+            #double-input-wrap {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 10px;
+            }
+            .input-wrap {
+                padding: 10px;
+            }
+            input {
+                width: 100%;
+            }
+            .error-message {
+                color: red;
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            #center {
+                display: flex;
+                justify-content: center;
+            }
+            #form {
+                padding: 20px;
+                background: #cccccc8a;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            button {
+                padding: 5px 10px;
+                background: white;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+            button:hover {
+                background: #cabdbd;
+            }
+        </style>
+        <div id="center" class="mt-4">
+            <div id="form">
+                <div id="double-input-wrap">
+                    <div class="input-wrap">
+                        <label>Name</label>
+                        <!--Name Input -->
+                        <input id="name" type="text" oninput="validateNameAndSurname()" />
+                    </div>
+                    <div class="input-wrap">
+                        <label>Surname</label>
+                        <!--Surname Input-->
+                        <input id="surname" type="text" oninput="validateNameAndSurname()" />
+                    </div>
+                </div>
+                <!--Name and surname error message, hidden by default-->
+                <div class="error-message" id="name-and-surname-error-message" style="display: none">
+                    Name and surname concatenated are longer than 20 characters
+                </div>
+                <!--"Next" button, enables badge input if name and surname are correct-->
+                <button id="next-button" onclick="next()">Next</button>
+                <!--Badge input, hidden by default-->
+                <div class="input-wrap" id="badge-wrap" style="display: none">
+                    <label>Badge</label>
+                    <input id="badge" type="text" oninput="validateBadge()" />
+                </div>
+                <!--Badge error message, hidden by default-->
+                <div class="error-message" id="badge-error-message" style="display: none">
+                    Badge must be a valid 3 or less-digits number
+                </div>
+                <!--Button submit,display, hidden by default-->
+                <button id="submit-button" style="display: none" onclick="onSubmit()">Submit!</button>
+
+                <div id="thank-you" style="display: none">
+                    Thank you for your submission, you are registered as
+                    <span id="submission-text"></span>
+                </div>
+            </div>
+        </div>
+        <script>
+            // html elements stored as varialbes
+            var badgeWrap = document.getElementById('badge-wrap');
+            var submitButton = document.getElementById('submit-button');
+            var nextButton = document.getElementById('next-button');
+            var nameAndSurnameErrorMessage = document.getElementById('name-and-surname-error-message');
+            var badgeErrorMessage = document.getElementById('badge-error-message');
+            var thankYou = document.getElementById('thank-you');
+            var submissionText = document.getElementById('submission-text');
+            var inputs = {
+                name: document.getElementById('name'),
+                surname: document.getElementById('surname'),
+                badge: document.getElementById('badge'),
+            };
+
+            // function which returns fullname
+            function getFullName() {
+                var name = inputs.name.value;
+                var surname = inputs.surname.value;
+                return name + ' ' + surname;
+            }
+            // function which returns true if name is valid and false if not
+            function isNameValid() {
+                return getFullName().length <= 20;
+            }
+            // function which hides or displays error message, called when user inputs anything into name or surname inputs
+            function validateNameAndSurname() {
+                if (!isNameValid()) {
+                    nameAndSurnameErrorMessage.style.display = 'flex'; // show name and surname error message
+                } else {
+                    nameAndSurnameErrorMessage.style.display = 'none'; // hide name and surname error message
+                }
+            }
+            // function which is called when next button is pressed
+            function next() {
+                if (isNameValid()) {
+                    // disable name input
+                    inputs.name.disabled = true;
+                    // disable surname input
+                    inputs.surname.disabled = true;
+                    // hide "next" button
+                    nextButton.style.display = 'none';
+                    // show badge input
+                    badgeWrap.style.display = 'block';
+                    // show submit button
+                    submitButton.style.display = 'block';
+                }
+            }
+            // function which returns true if badge is valid and false if not
+            function isBadgeValid() {
+                var badge = inputs.badge.value; // get badge input value
+                if (badge === '') {
+                    // return false if badge is an empty string
+                    return false;
+                }
+                if (badge.indexOf(' ') != -1) {
+                    // return false if badge contains spaces
+                    return false;
+                }
+                var intValue = Number(badge); // convert badge to integer
+                if (Number.isNaN(intValue)) {
+                    // return false if intValue is NotANumber
+                    return false;
+                }
+                return intValue < 1000 && intValue >= 0; // return false if intValue is less than 0 or more than 999, return true otherwise
+            }
+            // function which hides or displays error message, called when user inputs anything into badhe input
+            function validateBadge() {
+                if (!isBadgeValid()) {
+                    badgeErrorMessage.style.display = 'flex'; // show badge error message
+                } else {
+                    badgeErrorMessage.style.display = 'none'; // show badge error message
+                }
+            }
+            // function which is called when submit button is pressed
+            function onSubmit() {
+                validateBadge(); // validate badge one more time to show the error message if badge is invalid
+                if (!isBadgeValid()) {
+                    return;
+                }
+                submitButton.style.display = 'none'; // hide submit button
+                thankYou.style.display = 'block'; // show "thank you" message
+                inputs.badge.disabled = true; // disable badge input
+                submissionText.innerText = getFullName() + ' (' + inputs.badge.value + ')'; // set span text to user fullname and badge
+            }
+        </script>
+        <script src="load-nav.js"></script>
+    </body>
+</html>

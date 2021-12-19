@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Blackjack</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" media="screen" href="blackjack.css" />
+        <link rel="stylesheet" href="bootstrap.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">Yurii's Projects</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto" id="main-nav"></ul>
+            </div>
+        </nav>
+        <div id="wrap">
+            <div class="table">
+                <div class="game-wrap">
+                    <h1 class="table-title">Table 1 (Player 1)</h1>
+                    <div>Sum: <span id="player-1-sum">0</span></div>
+                    <div class="game" id="player-1-game"></div>
+                </div>
+                <div class="buttons" id="player-1-buttons">
+                    <button onclick="handleMoreForPlayer1()">More</button>
+                    <button onclick="handleStopForPlayer1()">Stop</button>
+                </div>
+            </div>
+            <div class="table" style="border-left: 1px solid #ccc">
+                <div class="game-wrap">
+                    <h1 class="table-title">Table 2 (player 2)</h1>
+                    <div>Sum: <span id="player-2-sum">0</span></div>
+                    <div class="game" id="player-2-game"></div>
+                </div>
+                <div class="buttons" style="display: none" id="player-2-buttons">
+                    <button onclick="handleMoreForPlayer2()">More</button>
+                    <button onclick="handleStopForPlayer2()">Stop</button>
+                </div>
+            </div>
+        </div>
+        <div id="backdrop" style="display: none">
+            <div id="play-again-wrap">
+                <div id="message">TEST</div>
+                <button onclick="location.reload()">Play again</button>
+            </div>
+        </div>
+
+        <script src="blackjack.js"></script>
+        <script src="load-nav.js"></script>
+    </body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">Yurii's Projects</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto" id="main-nav"></ul>
+            </div>
+        </nav>
+        <style>
+            body {
+                background: linear-gradient(to right, white, #9b44d8);
+                font-family: 'Roboto', sans-serif;
+            }
+            .logo-wrap {
+                display: flex;
+                font-weight: 700;
+            }
+            .logo-label-wrap {
+                display: flex;
+                align-items: center;
+                padding-left: 30px;
+            }
+            #logo-label {
+                font-size: 30px;
+                font-weight: bold;
+            }
+            table {
+                width: 75%;
+                background: linear-gradient(to bottom, white, #a455dc66);
+            }
+            th {
+                text-align: left;
+                font-weight: 700;
+            }
+            td {
+                font-weight: bold;
+                font-weight: 400;
+            }
+            .buttons-wrap {
+                display: flex;
+                margin-top: 20px;
+            }
+            .button {
+                border-right: #758f98;
+                border-bottom: #758f98;
+                padding: 4px 30px;
+                border-style: solid;
+                border-radius: 25%;
+                cursor: pointer;
+                user-select: none;
+            }
+            .button:hover {
+                background-color: #cccccc87;
+            }
+            .disabled {
+                background-color: #ccc;
+                opacity: 0.8;
+                pointer-events: none;
+            }
+        </style>
+        <div class="logo-wrap">
+            <!--Removed background from jpg to keep it transparent-->
+            <img src="logo-no-bg.png" id="logo" />
+            <div class="logo-label-wrap">
+                <label id="logo-label">UAT Space Program</label>
+            </div>
+        </div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th width="50%">Data Type</th>
+                    <th width="50%">Reading</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Time elapsed:</td>
+                    <td>15 seconds</td>
+                </tr>
+                <tr>
+                    <td>Latitude:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Longitude:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>GPS Altitude:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>BMP Sensor Altitude:</td>
+                    <td>30383.04</td>
+                </tr>
+                <tr>
+                    <td>BMP Sensor Pressure:</td>
+                    <td>2.34</td>
+                </tr>
+                <tr>
+                    <td>BMP Sensor Temperature:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Digital Sensor Temperature:</td>
+                    <td>24.12</td>
+                </tr>
+                <tr>
+                    <td>CSS Sensor Temperature:</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>CSS Sensor eCO2:</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>CSS Sensor TVOC:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>UV:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Accel X:</td>
+                    <td>-0.87</td>
+                </tr>
+                <tr>
+                    <td>Accel Y:</td>
+                    <td>-0.02</td>
+                </tr>
+                <tr>
+                    <td>Accel Z:</td>
+                    <td>9.61</td>
+                </tr>
+                <tr>
+                    <td>Magnetic X:</td>
+                    <td>0.13</td>
+                </tr>
+                <tr>
+                    <td>Magnetic Y:</td>
+                    <td>0.57</td>
+                </tr>
+                <tr>
+                    <td>Magnetic Z:</td>
+                    <td>-0.24</td>
+                </tr>
+                <tr>
+                    <td>Gyro X:</td>
+                    <td>4.66</td>
+                </tr>
+                <tr>
+                    <td>Gyro Y:</td>
+                    <td>0.01</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="buttons-wrap">
+            <!--We will add "disabled" class to toggle buttons-->
+            <div class="button" id="start" onclick="toggleButtons()">Start</div>
+            <div
+                class="button disabled"
+                id="stop"
+                onclick="toggleButtons()"
+                style="margin-left: 20px"
+            >
+                Stop
+            </div>
+        </div>
+        <script>
+            // buttons stored into variables
+            var startButton = document.getElementById('start');
+            var stopButton = document.getElementById('stop');
+
+            // current active button
+            var activeButton = 'start';
+            function toggleButtons() {
+                if (activeButton == 'start') {
+                    activeButton = 'stop'; // set active button to "stop"
+                    startButton.classList.add('disabled'); // add "disabled" class to start button
+                    stopButton.classList.remove('disabled'); // remove "disabled" class from stop button
+                } else {
+                    activeButton = 'start'; // set active button to "start"
+                    startButton.classList.remove('disabled'); // remove "disabled" class from start button
+                    stopButton.classList.add('disabled'); // add "disabled" class to stop button
+                }
+            }
+        </script>
+        <script src="load-nav.js"></script>
+    </body>
+</html>
